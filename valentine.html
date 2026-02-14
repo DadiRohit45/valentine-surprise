@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ff4e75">
+
+<title>Valentine Surprise 💝</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    overflow:hidden;
+}
+
+/* Floating Hearts */
+.floating-heart{
+    position:absolute;
+    bottom:-20px;
+    font-size:20px;
+    animation:floatUp linear forwards;
+    pointer-events:none;
+}
+@keyframes floatUp{
+    0%{transform:translateY(0) scale(0.8);opacity:1}
+    100%{transform:translateY(-110vh) scale(1.4);opacity:0}
+}
+
+/* Start Heart */
+.heart-start{
+    font-size:120px;
+    cursor:pointer;
+    animation:pulse 1.5s infinite;
+}
+@keyframes pulse{
+    0%{transform:scale(1)}
+    50%{transform:scale(1.1)}
+    100%{transform:scale(1)}
+}
+.open-text{
+    margin-top:15px;
+    font-size:1.2rem;
+    color:white;
+    font-weight:600;
+}
+
+/* Main Popup */
+.overlay{
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:rgba(0,0,0,0.6);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    visibility:hidden;
+    opacity:0;
+    transition:0.4s;
+    z-index:5;
+}
+.overlay.active{visibility:visible;opacity:1}
+
+.gift-container{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    width:90%;
+    max-width:600px;
+}
+
+.gift-boxes{
+    display:flex;
+    justify-content:space-around;
+    margin-top:20px;
+    flex-wrap:wrap;
+    gap:20px;
+}
+
+.gift{
+    font-size:70px;
+    cursor:pointer;
+    transition:0.3s;
+}
+.gift:hover{transform:scale(1.1)}
+
+/* Message Tabs */
+.tab{
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:rgba(0,0,0,0.7);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    visibility:hidden;
+    opacity:0;
+    transition:0.3s;
+    z-index:10;
+}
+.tab.active{visibility:visible;opacity:1}
+
+.tab-content{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    max-width:500px;
+    width:90%;
+}
+
+.tab-content img{
+    width:120px;
+    margin:10px;
+    border-radius:15px;
+}
+
+.close-btn{
+    margin-top:15px;
+    padding:8px 18px;
+    border:none;
+    border-radius:20px;
+    background:#ff4e75;
+    color:white;
+    cursor:pointer;
+}
+
+.valentine-btn{
+    margin-top:15px;
+    padding:8px 18px;
+    border:none;
+    border-radius:20px;
+    background:#ff4e75;
+    color:white;
+    cursor:pointer;
+}
+.teddy-wrapper{
+  display:flex;
+  justify-content:center;
+  margin:20px 0;
+}
+
+.teddy{
+  position:relative;
+  width:160px;
+  height:240px;
+  animation:bounce 1.5s infinite ease-in-out;
+}
+
+@keyframes bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-15px)}
+}
+
+/* Head */
+.head{
+  width:120px;
+  height:120px;
+  background:#c68642;
+  border-radius:50%;
+  position:absolute;
+  top:0;
+  left:20px;
+}
+
+/* Ears */
+.ear{
+  width:50px;
+  height:50px;
+  background:#c68642;
+  border-radius:50%;
+  position:absolute;
+  top:-20px;
+}
+.left-ear{left:-10px;}
+.right-ear{right:-10px;}
+
+/* Eyes */
+.eye{
+  width:12px;
+  height:12px;
+  background:black;
+  border-radius:50%;
+  position:absolute;
+  top:45px;
+}
+.left-eye{left:35px;}
+.right-eye{right:35px;}
+
+/* Nose */
+.nose{
+  width:18px;
+  height:12px;
+  background:black;
+  border-radius:50%;
+  position:absolute;
+  top:70px;
+  left:50px;
+}
+
+/* Body */
+.body{
+  width:130px;
+  height:130px;
+  background:#c68642;
+  border-radius:60px;
+  position:absolute;
+  top:100px;
+  left:15px;
+}
+
+/* Arms */
+.arm{
+  width:50px;
+  height:50px;
+  background:#c68642;
+  border-radius:50%;
+  position:absolute;
+  top:120px;
+}
+
+.left-arm{left:-20px;}
+
+.right-arm{
+  right:-20px;
+  transform-origin:left center;
+  animation:wave 1s infinite ease-in-out;
+}
+
+@keyframes wave{
+  0%{transform:rotate(0deg)}
+  50%{transform:rotate(35deg)}
+  100%{transform:rotate(0deg)}
+}
+
+/* Legs */
+.leg{
+  width:50px;
+  height:50px;
+  background:#c68642;
+  border-radius:50%;
+  position:absolute;
+  top:200px;
+}
+.left-leg{left:25px;}
+.right-leg{right:25px;}
+
+/* Mobile Responsive Improvements */
+@media (max-width: 600px){
+
+    body{
+        min-height:100vh;
+        padding:20px;
+    }
+
+    .gift-boxes{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .gift{
+        font-size:60px;
+    }
+
+    .heart-start{
+        font-size:90px;
+    }
+
+    .tab-content{
+        padding:20px;
+    }
+
+    .valentine-btn,
+    .close-btn{
+        display:block;
+        width:100%;
+        margin:10px auto;
+    }
+}
+
+/* Confetti */
+.confetti{
+    position:fixed;
+    width:10px;
+    height:10px;
+    background:red;
+    top:-10px;
+    animation:fall 3s linear forwards;
+    z-index:9999;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh) rotate(720deg);
+        opacity:0;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="heart-start" onclick="openGifts()">❤️</div>
+<div class="open-text">Click the Heart to Open Your Gifts 🎁</div>
+
+<!-- Gift Selection Popup -->
+<div class="overlay" id="overlay">
+    <div class="gift-container">
+        <h2 style="font-family:'Dancing Script',cursive;color:#ff4e75;font-size:2rem;">Choose Your Surprise 💝</h2>
+        <div class="gift-boxes">
+            <div class="gift" onclick="openTab('teddyTab')">🎁</div>
+            <div class="gift" onclick="openTab('sorryTab')">🎁</div>
+            <div class="gift" onclick="openTab('valentineTab')">🎁</div>
+        </div>
+    </div>
+</div>
+
+<!-- Teddy Tab -->
+<!-- Teddy Tab -->
+<div class="tab" id="teddyTab">
+  <div class="tab-content">
+    <h2 style="color:#ff4e75">Teddy Hugs 🧸</h2>
+
+    <div class="teddy-wrapper">
+      <div class="teddy">
+        <div class="ear left-ear"></div>
+        <div class="ear right-ear"></div>
+
+        <div class="head">
+          <div class="eye left-eye"></div>
+          <div class="eye right-eye"></div>
+          <div class="nose"></div>
+
+          <div class="bow">
+            <div class="bow-center"></div>
+          </div>
+        </div>
+
+        <div class="body"></div>
+
+        <div class="arm left-arm"></div>
+        <div class="arm right-arm"></div>
+
+        <div class="leg left-leg"></div>
+        <div class="leg right-leg"></div>
+      </div>
+    </div>
+
+    <p style="margin-top:15px;">Sending you warm teddy hugs 🧸💖</p>
+    <button class="close-btn" onclick="closeTab('teddyTab')">Close</button>
+  </div>
+</div>
+
+
+<!-- Sorry Tab -->
+<div class="tab" id="sorryTab">
+  <div class="tab-content">
+    <h2 style="color:#ff4e75">I'm Sorry 💌</h2>
+    <p>sorry ee madhya nenu chala worst ga behave chesthuna naku telusu ,adhi endhuku antey nenu ninnu face cheyalekapothuna 
+       endhuko naku ardham kavatledhu so ,nenu emina chiraku tepisthe i am very very sorry😔.
+       alagey pakka box kuda chudu kodiga 😅</p>
+    <button class="close-btn" onclick="closeTab('sorryTab')">Close</button>
+  </div>
+</div>
+
+<!-- Valentine Tab -->
+<div class="tab" id="valentineTab">
+  <div class="tab-content" style="position:relative;">
+    <h2 style="color:#ff4e75">A Special Question 💍</h2>
+    <p>Will you be my Valentine? 💕</p>
+
+    <button class="valentine-btn" onclick="sayYes()">Yes 💘</button>
+    <button class="valentine-btn" id="noBtn" onclick="moveNo()">No 😜</button>
+
+    <div id="yesMessage"></div>
+  </div>
+</div>
+<!-- Final Love Message Tab -->
+<div class="tab" id="finalLoveTab">
+  <div class="tab-content">
+    <h2 style="color:#ff4e75;font-family:'Dancing Script',cursive;font-size:2rem;">
+      You Said YES!!! 💖✨
+    </h2>
+
+    <p style="margin-top:15px;font-size:1.1rem;">
+      You just made my world brighter 🌎💘 <br><br>
+      From today, you are officially my favorite notification,
+      my favorite smile, and my forever Valentine 💕
+    </p>
+
+    <p style="margin-top:15px;font-weight:600;color:#ff4e75;">
+      I promise to make you smile every single day 😘
+    </p>
+
+    <button class="close-btn" onclick="closeTab('finalLoveTab')">
+      Close 💌
+    </button>
+  </div>
+</div>
+
+</div>
+
+<script>
+function openGifts(){
+    document.getElementById('overlay').classList.add('active');
+}
+
+function openTab(id){
+    document.getElementById(id).classList.add('active');
+}
+
+function closeTab(id){
+    document.getElementById(id).classList.remove('active');
+}
+
+function sayYes(){
+
+    // Vibrate on mobile
+    if(navigator.vibrate){
+        navigator.vibrate(200);
+    }
+
+    // Close question tab
+    closeTab('valentineTab');
+
+    // Open final message tab
+    document.getElementById('finalLoveTab').classList.add('active');
+
+    // Confetti explosion
+    for(let i=0; i<40; i++){
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+
+        confetti.style.left = Math.random()*100 + "vw";
+        confetti.style.backgroundColor =
+            "hsl(" + Math.random()*360 + ", 100%, 60%)";
+
+        confetti.style.animationDuration =
+            (Math.random()*2 + 2) + "s";
+
+        document.body.appendChild(confetti);
+
+        setTimeout(()=>{
+            confetti.remove();
+        },3000);
+    }
+}
+
+
+function createFloatingHeart(){
+    const heart=document.createElement('div');
+    heart.classList.add('floating-heart');
+    heart.innerHTML='❤️';
+    heart.style.left=Math.random()*100+'vw';
+    heart.style.fontSize=(Math.random()*20+15)+'px';
+    heart.style.animationDuration=(Math.random()*3+4)+'s';
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),7000);
+}
+setInterval(createFloatingHeart,400);
+function moveNo(){
+    const noBtn = document.getElementById("noBtn");
+    const container = noBtn.parentElement;
+
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+
+    const maxX = containerWidth - noBtn.offsetWidth;
+    const maxY = containerHeight - noBtn.offsetHeight;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noBtn.style.position = "absolute";
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+}
+
+
+</script>
+
+</body>
+</html>
